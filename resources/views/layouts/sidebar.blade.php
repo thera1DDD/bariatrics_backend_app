@@ -20,19 +20,19 @@
         <!-- Content For Sidebar -->
         <div class="h-100">
             <div class="sidebar-logo">
-                <a style="font-size: 25px" href="/">DjigitAdmin</a>
+                <a style="font-size: 27px" href="/">BariatricsAdmin</a>
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
                     <a href="/routes" class="sidebar-link">
                         <i class="fa-solid fa-list pe-2"></i>
-                        Маршруты
+                        Расписание
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a style="font-size: 16px" href="/offers" class="sidebar-link">
                         <i class="fa-solid fa-file-lines pe-2"></i>
-                        Заявки
+                        Еда
                     </a>
                 </li>
                 <li class="sidebar-item">
