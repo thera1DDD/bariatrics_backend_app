@@ -21,7 +21,6 @@
                             <th scope="col">Текущий результат</th>
                             <th scope="col">Статус</th>
                             <th scope="col">Дата</th>
-{{--                            <th scope="col">Статус</th>--}}
                             <th scope="col">Действие</th>
                         </tr>
                         </thead>
