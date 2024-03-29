@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Water\StoreWaterDayRequest;
 use App\Http\Requests\Water\UpdateRequest;
+use App\Http\Requests\Water\UpdateWaterDayRequest;
 use App\Models\User;
 use App\Models\Water;
 use App\Services\WaterService;
@@ -19,6 +21,13 @@ class WaterController extends Controller
     {
         $this->water = $water;
     }
+
+    public function storeWaterDay(StoreWaterDayRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $this->water->storeWaterDay($data);
+        return back()->with('success','Добавленно');
+    }
     public function destroy(Water $offer): RedirectResponse
     {
         $offer->delete();
@@ -30,9 +39,30 @@ class WaterController extends Controller
         return view('waterControl.userList')->with(['water' => User::with('water')->paginate(3)]);
     }
 
-    public function create()
+    public function userSearch(Request $request)
     {
-        return view('waterControl.create');
+        $search = $request->input('search');
+        $users = User::where('name', 'like', '%'.$search.'%')
+            ->orWhere('surname', 'like', '%'.$search.'%')
+            ->paginate(10);
+
+        return view('waterControl.userList')->with(['water'=>$users]);
+    }
+    public function waterSearch(Request $request)
+    {
+        $userId = $request->input('users_id');
+        $search = $request->input('date');
+        $user = User::findOrFail($request->input('users_id'));
+        $waters = Water::where('date', 'like', '%'.$search.'%')
+            ->where('users_id',$userId )
+            ->paginate(10);
+        return view('waterControl.waterList')->with(['waters'=>$waters,'user'=>$user]);
+    }
+
+
+    public function create($users_id)
+    {
+        return view('waterControl.create',compact('users_id'));
     }
 
 //    public function store(StoreRequest $request): RedirectResponse
@@ -42,10 +72,10 @@ class WaterController extends Controller
 //        return redirect()->route('offer.index')->with('success','Успешно созданно');
 //    }
 //
-    public function update(UpdateRequest $request, Water $waterDay): RedirectResponse
+    public function update(UpdateWaterDayRequest $request, Water $waterDay): RedirectResponse
     {
         $data = $request->validated();
-        $this->water->update($data,$waterDay);
+        $this->water->updateWaterDay($data,$waterDay);
         return redirect()->route('waterDays.show',$waterDay->users_id)->with('success','Обновленно');
     }
 

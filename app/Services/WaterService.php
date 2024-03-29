@@ -19,11 +19,11 @@ use function Symfony\Component\String\u;
 
 class WaterService extends Controller
 {
-    public function store($data): void
+    public function storeWaterDay($data): void
     {
         Water::firstOrCreate($data);
     }
-    public function update($data,Water $waterDay)
+    public function updateWaterDay($data,Water $waterDay)
     {
         $waterDay->update($data);
     }

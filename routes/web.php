@@ -38,9 +38,11 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix'=>'waterControl',],function (){
         Route::get('/',[\App\Http\Controllers\Admin\WaterController::class,'index'])->name('userList.index');
+        Route::get('/search',[\App\Http\Controllers\Admin\WaterController::class,'userSearch'])->name('userList.search');
+        Route::get('/daySearch',[\App\Http\Controllers\Admin\WaterController::class,'waterSearch'])->name('waterList.search');
         Route::delete('{waterDay}',[\App\Http\Controllers\Admin\WaterController::class,'destroyWaterDay'])->name('waterDays.delete');
-        Route::get('/create', [\App\Http\Controllers\Admin\WaterController::class, 'create'])->name('waterDay.create');
-        Route::post('/store', [\App\Http\Controllers\Admin\WaterController::class, 'store'])->name('water.store');
+        Route::get('/{users_id}/create', [\App\Http\Controllers\Admin\WaterController::class, 'create'])->name('waterDay.create');
+        Route::post('/store', [\App\Http\Controllers\Admin\WaterController::class, 'storeWaterDay'])->name('waterDay.store');
         Route::get('/{user}/show',[\App\Http\Controllers\Admin\WaterController::class, 'showWaterDays'])->name('waterDays.show');
         Route::get('/{waterDay}/edit',[\App\Http\Controllers\Admin\WaterController::class, 'editWaterDay'])->name('waterDays.edit');
         Route::put('{waterDay}',[\App\Http\Controllers\Admin\WaterController::class, 'update'])->name('waterDay.update');

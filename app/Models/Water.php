@@ -10,7 +10,7 @@ class Water extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['goal','current','achieved_at','users_id ','date'];
+    protected $fillable = ['goal','current','achieved_at','users_id','date'];
 
     public function user(): BelongsTo
     {

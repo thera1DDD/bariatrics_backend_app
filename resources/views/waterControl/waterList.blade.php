@@ -10,7 +10,20 @@
                     <div class="mb-3">
                         <h6 style="font-size: 20px">Расписание пациента {{$user->name}}</h6>
                     </div>
-                    <a href="{{route('waterDay.create')}}" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
+                    <form action="{{ route('waterList.search') }}" method="GET">
+                        <div class="form-group">
+                            <label for="date">День</label>
+                            <div class="input-group date" id="datepicker">
+                                <input type="text"  name="date" class="form-control custom-input">
+                                <span class="input-group-append"></span>
+                            </div>
+                            <input type="text" hidden="hidden" name="users_id" value="{{$user->id}}">
+                        </div>
+                        <div class="mb-2">
+                            <button type="submit" class="btn btn-primary">Поиск</button>
+                        </div>
+                    </form>
+                    <a href="{{route('waterDay.create',$user->id)}}" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -52,3 +65,13 @@
         </div>
     </div>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+        });
+    });
+</script>

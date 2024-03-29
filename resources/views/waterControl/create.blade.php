@@ -17,32 +17,41 @@
                         </ul>
                     </div>
                 @endif
-                <h4>Добавление дня</h4>
+                <h6 style="font-size: 22px">Создание дня</h6>
                 <br>
-                <form action="{{ route('routing.store') }}" method="post">
+                <form action="{{ route('waterDay.store') }}" method="post">
                     @csrf
-                    <div class="form-group">
-                        <label for="route_type">Тип:</label>
-                        <select name="route_type" id="route_type" class="form-control custom-input" required>
-                            <option value="carrier">Отправка</option>
-                            <option value="sender">Перевозка</option>
-                        </select>
-                    </div>
 
                     <div class="form-group">
-                        <label for="name">Цель:</label>
+                        <label for="goal">Цель:</label>
                         <input type="text" name="goal" id="goal" class="form-control custom-input" required>
                     </div>
+                    <br>
 
                     <div class="form-group">
                         <label for="current">Текущее значение:</label>
-                        <input name="current" id="current" class="form-control custom-input"  required>>
+                        <input name="current" id="current" class="form-control custom-input"  required>
                     </div>
-
+                    <br>
                     <div class="form-group">
-                        <label for="datepicker">Дата:</label>
-                        <input type="text" id="datepicker" name="date" class="form-control">
+                        <label for="achieved_at">Тип:</label>
+                        <select name="achieved_at" id="achieved_at" class="form-control custom-input" required>
+                            <option value="{{now()}}">Выпил</option>
+                            <option value="{{null}}">Не выпил</option>
+                        </select>
                     </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="date">День</label>
+                        <div class="input-group date" id="datepicker">
+                            <input type="text"  name="date" class="form-control custom-input">
+                            <span class="input-group-append">
+                        </span>
+                        </div>
+                    </div>
+                    <label hidden="hidden">
+                        <input hidden="hidden" name="users_id" value="{{$users_id}}" >
+                    </label>
                     <br>
                     <div class="form-group">
                         <button type="submit" class="btn btn-outline-secondary">Создать маршрут</button>
@@ -51,5 +60,14 @@
             </div>
         </div>
     </div>
-    @include('layouts.datePicker')
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+        });
+    });
+</script>

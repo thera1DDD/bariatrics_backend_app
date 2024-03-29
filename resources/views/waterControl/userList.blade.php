@@ -4,12 +4,24 @@
     <div class="container-fluid">
         @include('layouts.errors')
         <!-- Table Element -->
+
         <div class="card border-0">
             <div class="card-body">
                 <div class="mb-3 d-flex justify-content-between align-items-center">
                     <div class="mb-3">
                         <h6 style="font-size: 20px">Контроль воды </h6>
                     </div>
+                    <form action="{{ route('userList.search') }}" method="GET">
+                        <div class="form-group">
+                            <div class="mb-2">
+                                <input type="text" name="search" class="form-control" placeholder="Поиск">
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <button type="submit" class="btn btn-primary">Поиск</button>
+
+                        </div>
+                    </form>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -36,7 +48,7 @@
                                 <td data-th="Отчество">{{$user->patronymic}}</td>
                                 <td data-th="Вес">{{$user->weight}}</td>
                                 <td data-th="Возраст">{{$user->age}}</td>
-                                <td style="font-size: 25px" data-th="Пол">@if($user->gender == 'male') 🧔🏻‍♂️@else 👩🏻‍🦰 @endif</td>
+                                <td style="font-size: 25px" data-th="Пол">@if($user->gender == 'male' or $user->gender == null) 🧔🏻‍@else 👩🏻‍🦰 @endif</td>
 {{--                                <td data-th="Статус">--}}
 {{--                                    @if($user->water !== null && $user->water->isNotEmpty() && $user->water->first()->achieved_at !== null)--}}
 {{--                                        ✅--}}
