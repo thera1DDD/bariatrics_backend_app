@@ -17,9 +17,9 @@ class CategoryController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('categories.index')
-                ->with(['categories' => Category::select('id','name','description')
-                ->paginate(7)]);
+        return view('categories.index')->with(['categories' => Category::select('id','name','description')->paginate(7)]);
+
+
     }
 
     /**
@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.index');
+        return view('categories.create');
     }
 
     /**
@@ -35,8 +35,8 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::firstOrCreate($data = $request->validated());
-        return view('cateogry.index')->with('success','Добавлено');
+        Category::firstOrCreate($request->validated());
+        return redirect()->route('category.index')->with('success','Успешно созданно');
     }
 
     /**
@@ -52,15 +52,16 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+       return view('categories.edit',compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->validated());
+        return redirect()->route('category.index')->with('success','Успешно обновленно');
     }
 
     /**
@@ -69,6 +70,6 @@ class CategoryController extends Controller
     public function destroy(Category $category): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $category->forceDelete();
-        return view('cateogry.index')->with('error','Удаленно');
+        return view('categories.index')->with('error','Удаленно');
     }
 }

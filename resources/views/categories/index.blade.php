@@ -10,7 +10,7 @@
                     <div class="mb-3">
                         <h6 style="font-size: 20px">Категории</h6>
                     </div>
-                    <a href="routes/create" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
+                    <a href="{{route('category.create')}}" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
