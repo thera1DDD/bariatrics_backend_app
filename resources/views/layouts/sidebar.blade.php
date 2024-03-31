@@ -32,8 +32,8 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="/routes" class="sidebar-link">
-                        <i class="fa-solid fa-list pe-2"></i>
+                    <a style="font-size: 16px" href="/routes" class="sidebar-link">
+                        <i class="fa fa-calendar fa-list pe-2"></i>
                         Расписание
                     </a>
                 </li>
@@ -44,8 +44,14 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a style="font-size: 16px" href="{{route('category.index')}}" class="sidebar-link">
+                        <i class="fa-solid fa-list pe-2"></i>
+                        Категории
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a style="font-size: 16px" href="{{route('userList.index')}}" class="sidebar-link">
-                        <i class="fa-solid fa-file-lines pe-2"></i>
+                        <i class="fa fa-shower pe-2"></i>
                         Контроль воды
                     </a>
                 </li>

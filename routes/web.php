@@ -27,6 +27,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/chart',[\App\Http\Controllers\Admin\HomeController::class,'routesChart'])->name('home.index.chart');
 
 
+    Route::group(['prefix'=>'categories',],function (){
+        Route::get('/',[\App\Http\Controllers\Admin\CategoryController::class,'index'])->name('category.index');
+        Route::delete('{category}',[\App\Http\Controllers\Admin\CategoryController::class,'destroy'])->name('category.delete');
+        Route::get('/create', [\App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('category.create');
+        Route::post('/store', [\App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('category.store');
+        Route::get('/{category}/edit',[\App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('category.edit');
+        Route::put('{category}',[\App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('category.update');
+    });
+
     Route::group(['prefix'=>'routes',],function (){
         Route::get('/',[\App\Http\Controllers\Admin\RoutingController::class,'index'])->name('routing.index');
         Route::delete('{routing}',[\App\Http\Controllers\Admin\RoutingController::class,'destroy'])->name('routing.delete');
