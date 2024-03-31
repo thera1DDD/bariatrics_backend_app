@@ -18,8 +18,6 @@ class CategoryController extends Controller
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('categories.index')->with(['categories' => Category::select('id','name','description')->paginate(7)]);
-
-
     }
 
     /**
