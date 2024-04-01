@@ -19,7 +19,7 @@
                 @endif
                 <h6 style="font-size: 22px">Создание дня</h6>
                 <br>
-                <form action="{{ route('waterDay.store') }}" method="post">
+                <form action="{{ route('stepDay.store') }}" method="post">
                     @csrf
 
                     <div class="form-group">
@@ -32,12 +32,20 @@
                         <label for="current">Текущее значение:</label>
                         <input name="current" id="current" class="form-control custom-input"  required>
                     </div>
+                    <div class="form-group">
+                        <label for="current">Каллории:</label>
+                        <input name="current" id="current" class="form-control custom-input"  required>
+                    </div>
+                    <div class="form-group">
+                        <label for="current">Дистанция:</label>
+                        <input name="current" id="current" class="form-control custom-input"  required>
+                    </div>
                     <br>
                     <div class="form-group">
-                        <label for="achieved_at">Тип:</label>
+                        <label for="achieved_at">Статус:</label>
                         <select name="achieved_at" id="achieved_at" class="form-control custom-input" required>
-                            <option value="{{now()}}">Выпил</option>
-                            <option value="{{null}}">Не выпил</option>
+                            <option value="{{now()}}">Прошёл</option>
+                            <option value="{{null}}">Не прошёл</option>
                         </select>
                     </div>
                     <br>

@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('steps', function (Blueprint $table) {
             $table->id();
+            $table->string('goal')->nullable();
+            $table->string('current')->nullable();
+            $table->string('kkal')->nullable();
+            $table->string('distance')->nullable();
+            $table->dateTime('achieved_at')->nullable();
+            $table->dateTime('date')->nullable();
+            $table->foreignId('users_id')
+                ->nullable()
+                ->index()
+                ->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

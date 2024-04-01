@@ -9,9 +9,9 @@
             <div class="card-body">
                 <div class="mb-3 d-flex justify-content-between align-items-center">
                     <div class="mb-3">
-                        <h6 style="font-size: 20px">Контроль воды </h6>
+                        <h6 style="font-size: 20px">Контроль Шагов </h6>
                     </div>
-                    <form action="{{ route('userList.search.water') }}" method="GET">
+                    <form action="{{ route('userList.search.step') }}" method="GET">
                         <div class="form-group">
                             <div class="mb-2">
                                 <input type="text" name="search" class="form-control" placeholder="Поиск">
@@ -39,7 +39,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($water as $user)
+                        @foreach($users as $user)
                             <tr style="font-size: 17px">
                                 <td data-th="Id">{{$user->id}}</td>
 {{--                                <td data-th="Тип">{{$user->route_type == 'sender' ? 'Отправлю' : 'Перевезу'}}</td>--}}
@@ -49,14 +49,7 @@
                                 <td data-th="Вес">{{$user->weight}}</td>
                                 <td data-th="Возраст">{{$user->age}}</td>
                                 <td style="font-size: 25px" data-th="Пол">@if($user->gender == 'male' or $user->gender == null) 🧔🏻‍@else 👩🏻‍🦰 @endif</td>
-{{--                                <td data-th="Статус">--}}
-{{--                                    @if($user->water !== null && $user->water->isNotEmpty() && $user->water->first()->achieved_at !== null)--}}
-{{--                                        ✅--}}
-{{--                                    @else--}}
-{{--                                        ❌--}}
-{{--                                    @endif--}}
-{{--                                </td>--}}
-                                <td data-th="Действие"> <a style="width: 134px" href="{{route('waterDays.show',$user->id)}}"  class="btn btn-outline-success">  <i class="fas fa-calendar"></i> Расписание</a>
+                                <td data-th="Действие"> <a style="width: 134px" href="{{route('stepDays.show',$user->id)}}"  class="btn btn-outline-success">  <i class="fas fa-calendar"></i> Расписание</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -64,7 +57,7 @@
                     </table>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
-                    {{ $water->links('pagination::bootstrap-4') }}
+                    {{ $users->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>

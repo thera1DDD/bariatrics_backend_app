@@ -26,7 +26,7 @@ class WaterController extends Controller
     {
         $data = $request->validated();
         $this->water->storeWaterDay($data);
-        return back()->with('success','Добавленно');
+        return redirect()->route('waterDays.show',$data['users_id'])->with('success','Добавленно');
     }
     public function destroy(Water $offer): RedirectResponse
     {

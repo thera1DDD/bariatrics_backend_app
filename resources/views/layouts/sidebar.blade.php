@@ -50,9 +50,16 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a style="font-size: 16px" href="{{route('userList.index')}}" class="sidebar-link">
+                    <a style="font-size: 16px" href="{{route('userList.water')}}" class="sidebar-link">
                         <i class="fa fa-shower pe-2"></i>
                         Контроль воды
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a style="font-size: 16px" href="{{route('userList.step')}}" class="sidebar-link">
+                        <i class="fa fa-shower pe-2"></i>
+                        Контроль Шагов
                     </a>
                 </li>
                 <li class="sidebar-item">

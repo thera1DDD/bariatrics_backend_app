@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Water::class,'users_id','id');
     }
+
+    public function step(): HasMany
+    {
+        return $this->hasMany(Step::class,'users_id','id');
+    }
 }
