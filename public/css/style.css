@@ -278,6 +278,13 @@ html[data-bs-theme="light"] .theme-toggle .fa-sun {
     margin-bottom: 7px;
 }
 
+.btn-outline-warning{
+    margin-top: 7px;
+    height: 34px;
+    width: 55px;
+    margin-bottom: 7px;
+}
+
 
 
 

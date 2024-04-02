@@ -28,8 +28,16 @@ Route::middleware('auth')->group(function () {
 
 
     Route::group(['prefix'=>'categories',],function (){
+        Route::delete('{food}',[\App\Http\Controllers\Admin\CategoryController::class,'destroyFood'])->name('food.delete');
+
+        Route::get('/{food}/foodEdit',[\App\Http\Controllers\Admin\CategoryController::class, 'editFood'])->name('food.edit');
+        Route::post('/storeFood', [\App\Http\Controllers\Admin\CategoryController::class, 'storeFood'])->name('food.store');
+        Route::put('/{food}', [\App\Http\Controllers\Admin\CategoryController::class, 'updateFood'])->name('food.update');
+        Route::get('/{category}/create', [\App\Http\Controllers\Admin\CategoryController::class, 'createFood'])->name('food.create');
+        Route::get('/{category}/show',[\App\Http\Controllers\Admin\CategoryController::class, 'showCategoryFoods'])->name('food.show');
         Route::get('/',[\App\Http\Controllers\Admin\CategoryController::class,'index'])->name('category.index');
         Route::delete('{category}',[\App\Http\Controllers\Admin\CategoryController::class,'destroy'])->name('category.delete');
+        ;
         Route::get('/create', [\App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('category.create');
         Route::post('/store', [\App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('category.store');
         Route::get('/{category}/edit',[\App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('category.edit');

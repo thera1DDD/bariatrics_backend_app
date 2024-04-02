@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="mb-3 d-flex justify-content-between align-items-center">
                     <div class="mb-3">
-                        <h6 style="font-size: 20px">Контроль Шагов </h6>
+                        <h6 style="font-size: 20px">Шагомер</h6>
                     </div>
                     <form action="{{ route('userList.search.step') }}" method="GET">
                         <div class="form-group">

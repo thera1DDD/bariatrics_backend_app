@@ -28,7 +28,7 @@
         <!-- Content For Sidebar -->
         <div class="h-100">
             <div class="sidebar-logo">
-                <a style="font-size: 27px" href="/">BariatricsAdmin</a>
+                <a style="font-size: 35px" href="/">Bariatrics</a>
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
@@ -38,11 +38,17 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a style="font-size: 16px" href="/offers" class="sidebar-link">
+                    <a style="font-size: 16px" href="{{route('category.index')}}" class="sidebar-link">
                         <i class="fa fa-cutlery pe-2"></i>
-                        Еда
+                        Меню
                     </a>
                 </li>
+{{--                <li class="sidebar-item">--}}
+{{--                    <a style="font-size: 16px" href="/offers" class="sidebar-link">--}}
+{{--                        <i class="fa fa-cutlery pe-2"></i>--}}
+{{--                        Еда--}}
+{{--                    </a>--}}
+{{--                </li>--}}
 
                 <li class="sidebar-item">
                     <a style="font-size: 16px" href="{{route('userList.water')}}" class="sidebar-link">
@@ -57,12 +63,7 @@
                         Шагомер
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a style="font-size: 16px" href="{{route('category.index')}}" class="sidebar-link">
-                        <i class="fa-solid fa-list pe-2"></i>
-                        Категории
-                    </a>
-                </li>
+
                 <li class="sidebar-item">
                     <a style="font-size: 16px" href="/users" class="sidebar-link">
                       <i class="fa-regular fa-user pe-2"></i>

@@ -8,42 +8,45 @@
             <div class="card-body">
                 <div class="mb-3 d-flex justify-content-between align-items-center">
                     <div class="mb-3">
-                        <h6 style="font-size: 20px">Меню</h6>
+                        <h6 style="font-size: 20px">Еда</h6>
                     </div>
-                    <a href="{{route('category.create')}}" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
+                    <a href="{{route('food.create',$category->id)}}" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Категория</th>
+                            <th scope="col">Название</th>
                             <th scope="col">Описание</th>
+                            <th scope="col">Каллории</th>
+                            <th scope="col">Грамм</th>
                             <th scope="col">Действие</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($categories as $category)
+                        @foreach($foods as $food)
                             <tr>
-                                <td data-th="Id">{{$category->id}}</td>
-                                <td data-th="Имя">{{$category->name}}</td>
-                                <td data-th="Описание">{{$category->description}}</td>
+                                <td data-th="Id">{{$food->id}}</td>
+                                <td data-th="Имя">{{$food->name}}</td>
+                                <td data-th="Описание">{{$food->description}}</td>
+                                <td data-th="Каллории">{{$food->kkal}}</td>
+                                <td data-th="Грамм">{{$food->gram}}</td>
                                 <td data-th="Действие">
-                                    <a href="{{route('category.edit',$category->id)}}" class="btn btn-outline-success"> <i class="fa fa-edit"></i></a>
-                                    <form action="{{route('category.delete',$category->id) }}" method="post">
+                                    <a href="{{route('food.edit',$food->id)}}" class="btn btn-outline-success"> <i class="fa fa-edit"></i></a>
+                                    <form action="{{route('food.delete',$food->id) }}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button  type="submit" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                                     </form>
-                                    <a href="{{route('food.show',$category->id)}}" style="width: 55px" class="btn btn-outline-warning"> <i class="fa fa-cutlery"></i></a>
-                                    </td>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
-                    {{ $categories->links('pagination::bootstrap-4') }}
+                    {{ $foods->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>
