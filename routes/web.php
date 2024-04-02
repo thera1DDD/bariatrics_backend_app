@@ -58,9 +58,9 @@ Route::middleware('auth')->group(function () {
         Route::put('{waterDay}',[\App\Http\Controllers\Admin\WaterController::class, 'update'])->name('waterDay.update');
     });
     Route::group(['prefix'=>'stepControl',],function (){
-        Route::get('/',[\App\Http\Controllers\Admin\StepController::class,'index'])->name('userList.step');
+        Route::get('/',[\App\Http\Controllers\Admin\StepController::class,'userListindex'])->name('userList.step');
         Route::get('/search',[\App\Http\Controllers\Admin\StepController::class,'userSearch'])->name('userList.search.step');
-        Route::get('/daySearch',[\App\Http\Controllers\Admin\StepController::class,'waterSearch'])->name('stepList.search');
+        Route::get('/daySearch',[\App\Http\Controllers\Admin\StepController::class,'stepDaySearch'])->name('stepList.search');
         Route::delete('{stepDay}',[\App\Http\Controllers\Admin\StepController::class,'destroyStepDay'])->name('stepDay.delete');
         Route::get('/{users_id}/create', [\App\Http\Controllers\Admin\StepController::class, 'create'])->name('stepDay.create');
         Route::post('/store', [\App\Http\Controllers\Admin\StepController::class, 'storeDay'])->name('stepDay.store');

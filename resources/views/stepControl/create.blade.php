@@ -21,24 +21,22 @@
                 <br>
                 <form action="{{ route('stepDay.store') }}" method="post">
                     @csrf
-
                     <div class="form-group">
                         <label for="goal">Цель:</label>
                         <input type="text" name="goal" id="goal" class="form-control custom-input" required>
                     </div>
                     <br>
-
                     <div class="form-group">
                         <label for="current">Текущее значение:</label>
                         <input name="current" id="current" class="form-control custom-input"  required>
                     </div>
                     <div class="form-group">
-                        <label for="current">Каллории:</label>
-                        <input name="current" id="current" class="form-control custom-input"  required>
+                        <label for="kkal">Каллории:</label>
+                        <input name="kkal" id="kkal" class="form-control custom-input"  required>
                     </div>
                     <div class="form-group">
-                        <label for="current">Дистанция:</label>
-                        <input name="current" id="current" class="form-control custom-input"  required>
+                        <label for="distance">Дистанция:</label>
+                        <input name="distance" id="distance" class="form-control custom-input"  required>
                     </div>
                     <br>
                     <div class="form-group">

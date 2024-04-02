@@ -4,6 +4,7 @@
     <div class="container-fluid">
         <div class="card border-0">
             <div class="card-body">
+
                 <div class="mb-3">
                     <h6 style="font-size: 20px"> Редактирование дня пациента</h6>
                 </div>
@@ -30,8 +31,8 @@
                     <div class="form-group">
                         <label for="achieved_at">Статус:</label>
                         <select name="achieved_at" id="achieved_at" class="form-control custom-input">
-                            <option value="{{null}}" {{ $stepDay->achieved_at == null ? 'selected' : '' }}>Не выпил</option>
-                            <option  value="{{now()}}" {{ $stepDay->achieved_at !== null ? 'selected' : '' }}>Выпил</option>
+                            <option value="{{null}}" {{ $stepDay->achieved_at == null ? 'selected' : '' }}>Не прошёл</option>
+                            <option  value="{{now()}}" {{ $stepDay->achieved_at !== null ? 'selected' : '' }}>Прошёл</option>
                         </select>
                     </div>
                     <div class="form-group">

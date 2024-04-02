@@ -4,7 +4,6 @@
     <div class="container-fluid">
         @include('layouts.errors')
         <!-- Table Element -->
-
         <div class="card border-0">
             <div class="card-body">
                 <div class="mb-3 d-flex justify-content-between align-items-center">

@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'goal' => 'nullable',
             'current' => 'nullable',
-            'is_achieved' => 'nullable',
+            'achieved_at' => 'nullable',
             'kkal' => 'nullable',
             'distance' => 'nullable',
             'date' => 'nullable',

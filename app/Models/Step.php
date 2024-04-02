@@ -10,7 +10,7 @@ class Step extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['goal','current','kkal'. 'distance','achieved_at','users_id','date'];
+    protected $fillable = ['goal','current','kkal', 'distance','achieved_at','users_id','date'];
 
     public function user(): BelongsTo
     {

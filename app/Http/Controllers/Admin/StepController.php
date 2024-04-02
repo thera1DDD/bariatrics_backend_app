@@ -26,15 +26,17 @@ class StepController extends Controller
         $this->step->storeDay($data);
         return redirect()->route('stepDays.show',$data['users_id'])->with('success','Добавленно');
     }
-    public function destroy(Step $offer): RedirectResponse
+    public function destroy(Step $step): RedirectResponse
     {
-        $offer->delete();
-        return redirect()->route('offer.index')->with('error','Удаленно');
+        $step->delete();
+        return redirect()->route('stepDays.show',$step->users_id)->with('success','Удаленно');
     }
 
-    public function index()
+    public function userListindex()
     {
-        return view('stepControl.userList')->with(['users' => User::with('step')->paginate(3)]);
+        return view('stepControl.userList')
+            ->with(['users' => User::with('step')
+            ->paginate(3)]);
     }
 
     public function userSearch(Request $request)
@@ -44,9 +46,9 @@ class StepController extends Controller
             ->orWhere('surname', 'like', '%'.$search.'%')
             ->paginate(10);
 
-        return view('stepControl.userList')->with(['step'=>$users]);
+        return view('stepControl.userList')->with(['users'=>$users]);
     }
-    public function stepSearch(Request $request)
+    public function stepDaySearch(Request $request)
     {
         $userId = $request->input('users_id');
         $search = $request->input('date');

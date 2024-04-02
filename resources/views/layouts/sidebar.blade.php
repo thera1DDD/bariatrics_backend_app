@@ -39,16 +39,11 @@
                 </li>
                 <li class="sidebar-item">
                     <a style="font-size: 16px" href="/offers" class="sidebar-link">
-                        <i class="fa-solid fa-file-lines pe-2"></i>
+                        <i class="fa fa-cutlery pe-2"></i>
                         Еда
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a style="font-size: 16px" href="{{route('category.index')}}" class="sidebar-link">
-                        <i class="fa-solid fa-list pe-2"></i>
-                        Категории
-                    </a>
-                </li>
+
                 <li class="sidebar-item">
                     <a style="font-size: 16px" href="{{route('userList.water')}}" class="sidebar-link">
                         <i class="fa fa-shower pe-2"></i>
@@ -58,8 +53,14 @@
 
                 <li class="sidebar-item">
                     <a style="font-size: 16px" href="{{route('userList.step')}}" class="sidebar-link">
-                        <i class="fa fa-shower pe-2"></i>
-                        Контроль Шагов
+                        <i class="fa fa-blind pe-2"></i>
+                        Шагомер
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a style="font-size: 16px" href="{{route('category.index')}}" class="sidebar-link">
+                        <i class="fa-solid fa-list pe-2"></i>
+                        Категории
                     </a>
                 </li>
                 <li class="sidebar-item">
