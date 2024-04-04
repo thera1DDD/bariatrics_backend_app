@@ -26,10 +26,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/',[\App\Http\Controllers\Admin\HomeController::class,'index'])->name('home.index');
     Route::get('/chart',[\App\Http\Controllers\Admin\HomeController::class,'routesChart'])->name('home.index.chart');
 
+    Route::group(['prefix'=>'meals',],function (){
+        Route::get('/',[\App\Http\Controllers\Admin\MealController::class,'index'])->name('userList.meal');
+        Route::get('/{user}/show',[\App\Http\Controllers\Admin\MealController::class, 'showMeals'])->name('meal.show');
+        Route::get('/{meal}/edit',[\App\Http\Controllers\Admin\MealController::class, 'edit'])->name('meal.edit');
+        Route::get('/search',[\App\Http\Controllers\Admin\MealController::class,'userSearch'])->name('userList.search.water');
+        Route::get('/daySearch',[\App\Http\Controllers\Admin\MealController::class,'waterSearch'])->name('waterList.search');
+        Route::delete('{waterDay}',[\App\Http\Controllers\Admin\MealController::class,'destroyWaterDay'])->name('waterDays.delete');
+        Route::get('/{users_id}/create', [\App\Http\Controllers\Admin\MealController::class, 'create'])->name('waterDay.create');
+        Route::post('/store', [\App\Http\Controllers\Admin\MealController::class, 'storeWaterDay'])->name('waterDay.store');
+
+        Route::put('{waterDay}',[\App\Http\Controllers\Admin\MealController::class, 'update'])->name('waterDay.update');
+    });
+
+
 
     Route::group(['prefix'=>'categories',],function (){
         Route::delete('{food}',[\App\Http\Controllers\Admin\CategoryController::class,'destroyFood'])->name('food.delete');
-
         Route::get('/{food}/foodEdit',[\App\Http\Controllers\Admin\CategoryController::class, 'editFood'])->name('food.edit');
         Route::post('/storeFood', [\App\Http\Controllers\Admin\CategoryController::class, 'storeFood'])->name('food.store');
         Route::put('/{food}', [\App\Http\Controllers\Admin\CategoryController::class, 'updateFood'])->name('food.update');

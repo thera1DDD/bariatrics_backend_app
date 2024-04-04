@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Step::class,'users_id','id');
     }
+
+    public function meal(): HasMany
+    {
+        return $this->hasMany(Meal::class,'users_id','id');
+    }
 }
