@@ -27,16 +27,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/chart',[\App\Http\Controllers\Admin\HomeController::class,'routesChart'])->name('home.index.chart');
 
     Route::group(['prefix'=>'meals',],function (){
+        Route::put('{meal}',[\App\Http\Controllers\Admin\MealController::class, 'update'])->name('meal.update');
+
+        Route::post('/store', [\App\Http\Controllers\Admin\MealController::class, 'storeMeal'])->name('meal.store');
+        Route::delete('{meal}',[\App\Http\Controllers\Admin\MealController::class,'destroyMeal'])->name('meal.delete');
         Route::get('/',[\App\Http\Controllers\Admin\MealController::class,'index'])->name('userList.meal');
-        Route::get('/{user}/show',[\App\Http\Controllers\Admin\MealController::class, 'showMeals'])->name('meal.show');
+        Route::get('/{user}/show',[\App\Http\Controllers\Admin\MealController::class, 'showMeals'])->name('meal.index');
+        Route::get('/{user}/create', [\App\Http\Controllers\Admin\MealController::class, 'createMeal'])->name('meal.create');
         Route::get('/{meal}/edit',[\App\Http\Controllers\Admin\MealController::class, 'edit'])->name('meal.edit');
         Route::get('/search',[\App\Http\Controllers\Admin\MealController::class,'userSearch'])->name('userList.search.water');
         Route::get('/daySearch',[\App\Http\Controllers\Admin\MealController::class,'waterSearch'])->name('waterList.search');
         Route::delete('{waterDay}',[\App\Http\Controllers\Admin\MealController::class,'destroyWaterDay'])->name('waterDays.delete');
         Route::get('/{users_id}/create', [\App\Http\Controllers\Admin\MealController::class, 'create'])->name('waterDay.create');
-        Route::post('/store', [\App\Http\Controllers\Admin\MealController::class, 'storeWaterDay'])->name('waterDay.store');
 
-        Route::put('{waterDay}',[\App\Http\Controllers\Admin\MealController::class, 'update'])->name('waterDay.update');
+
     });
 
 

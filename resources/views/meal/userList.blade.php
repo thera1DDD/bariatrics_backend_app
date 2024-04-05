@@ -48,7 +48,7 @@
                                 <td data-th="Вес">{{$user->weight}}</td>
                                 <td data-th="Возраст">{{$user->age}}</td>
                                 <td style="font-size: 25px" data-th="Пол">@if($user->gender == 'male' or $user->gender == null) 🧔🏻‍@else 👩🏻‍🦰 @endif</td>
-                                <td data-th="Действие"> <a style="width: 134px" href="{{route('meal.show',$user->id)}}"  class="btn btn-outline-success">  <i class="fas fa-calendar"></i> Рацион</a>
+                                <td data-th="Действие"> <a style="width: 134px" href="{{route('meal.index',$user->id)}}"  class="btn btn-outline-success">  <i class="fas fa-calendar"></i> Рацион</a>
                                 </td>
                             </tr>
                         @endforeach

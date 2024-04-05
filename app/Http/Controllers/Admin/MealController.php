@@ -3,20 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Meal\MealRequest;
 use App\Models\Meal;
 use App\Models\User;
 use App\Services\MealService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class MealController extends Controller
 {
 
 
-    protected $waterService;
+    protected $mealService;
 
-    public function __construct(MealService $waterService)
+    public function __construct(MealService $mealService)
     {
-        $this->waterService = $waterService;
+        $this->mealService = $mealService;
     }
     /**
      * Display a listing of the resource.
@@ -29,25 +31,30 @@ class MealController extends Controller
     public function showMeals(User $user)
     {
         $meals = Meal::query()->where('users_id',$user->id)->with('user')->paginate(3);
-        $mealTranslations = $this->waterService->translateType();
+        $mealTranslations = $this->mealService->translateType();
         return view('meal.index',compact('meals','user','mealTranslations'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createMeal(User $user)
     {
-        //
+        return view('meal.create',compact('user'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeMeal(MealRequest $request)
     {
-        //
+        $data = $request->validated();
+        $mealTranslations = $this->mealService->translateType();
+        $this->mealService->store($data);
+        return redirect()->route('meal.index',$data['users_id'])->with('success','Добавленно');
+
     }
+
 
     /**
      * Display the specified resource.
@@ -68,16 +75,19 @@ class MealController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Meal $meal)
+    public function update(MealRequest $request, Meal $meal)
     {
-        //
+        $data = $request->validated();
+        $this->mealService->update($data,$meal);
+        return redirect()->route('meal.index',$meal->users_id)->with('success','Обновленно');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Meal $meal)
+    public function destroyMeal(Meal $meal): RedirectResponse
     {
-        //
+        $meal->forceDelete();
+        return back()->with('error', 'Удалено');
     }
 }

@@ -2,40 +2,38 @@
 
 @section('content')
     <div class="container-fluid">
-
         <div class="card border-0">
             <div class="card-body">
-                <h6 style="font-size: 20px">Добавление запроса</h6>
+                <h6 style="font-size: 20px">Добавление приема пищи</h6>
                 <br>
-                <form action="{{ route('offer.store') }}" method="post">
+                <form action="{{ route('meal.store') }}" method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="requested_users_id">Заявка от:</label>
-                        <select name="requested_users_id" id="requested_users_id" class="form-control custom-input">
-                            @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
+                        <label for="type">Тип</label>
+                        <select name="type" id="type" class="form-control custom-input">
+                            <option value="breakfast">Завтрак</option>
+                            <option value="second">Второе</option>
+                            <option value="lunch">Обед</option>
+                            <option value="midday">Полдник</option>
+                            <option value="dinner">Ужин</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="routings_id">Маршруты:</label>
-                        <select name="routings_id" id="routings_id" class="form-control custom-input">
-                            @foreach($routings as $routing)
-                                <option value="{{ $routing->id }}">{{ $routing->name }}</option>
-                            @endforeach
+                        <label for="ate_at">Статус:</label>
+                        <select name="ate_at" id="ate_at" class="form-control custom-input" required>
+                            <option value="{{ now() }}">Съеден</option>
+                            <option selected value="{{ null }}">Не съеден</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="status">Статус:</label>
-                        <select name="status" id="status" class="form-control custom-input">
-                            <option value="accepted">Принято</option>
-                            <option value="waiting">Ожидает</option>
-                            <option value="rejected">Отклонено</option>
-                            <option value="completed">Завершено</option>
-                        </select>
+                        <label for="meal_start_at">Начало приема пищи:</label>
+                        <input type="text" id="meal_start_at" name="meal_start_at" class="form-control custom-input" required>
                     </div>
+                    <div class="form-group">
+                        <label for="meal_end_at">Конец приема пищи:</label>
+                        <input type="text" id="meal_end_at" name="meal_end_at" class="form-control custom-input" required>
+                    </div>
+                    <input hidden="hidden" name="users_id" value="{{$user->id}}" >
                     <br>
                     <div class="form-group">
                         <button type="submit" class="btn btn-outline-secondary">Создать</button>
@@ -45,3 +43,32 @@
         </div>
     </div>
 @endsection
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" defer></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+<script>
+    $(function() {
+        $('#meal_start_at').daterangepicker({
+            singleDatePicker: true,
+            timePicker: true,
+            timePicker24Hour: true,
+            timePickerIncrement: 15,
+            locale: {
+                format: 'YYYY-MM-DD HH:mm'
+            }
+        });
+    });
+
+    $(function() {
+        $('#meal_end_at').daterangepicker({
+            singleDatePicker: true,
+            timePicker: true,
+            timePicker24Hour: true,
+            timePickerIncrement: 15,
+            locale: {
+                format: 'YYYY-MM-DD HH:mm'
+            }
+        });
+    });
+</script>

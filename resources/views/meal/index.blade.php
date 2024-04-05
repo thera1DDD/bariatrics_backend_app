@@ -10,7 +10,7 @@
                     <div class="mb-3">
                         <h6 style="font-size: 20px">Приемы пищи</h6>
                     </div>
-                    <a href="offers/create" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
+                    <a href="{{route('meal.create',$user->id)}}" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -29,9 +29,9 @@
                         @foreach($meals as $meal)
                             <tr>
                                 <td data-th="Id">{{$meal->id}}</td>
-                                <td data-th="type">{{ $mealTranslations[$meal->type] }}</td>
-                                <td data-th="Заявка от">{{$meal->meal_start_at}}</td>
-                                <td data-th="Дата создания">{{$meal->meal_end_at}}</td>
+                                <td data-th="Тип">{{ $mealTranslations[$meal->type] }}</td>
+                                <td data-th="Начало">{{$meal->meal_start_at}}</td>
+                                <td data-th="Конец">{{$meal->meal_end_at}}</td>
                                 <td data-th="Статус">@if($meal->ate_at != null)Cъеден@else Не съеден@endif</td>
                                 <td data-th="Дата">{{ \Carbon\Carbon::parse($meal->meal_end_at)->format('Y-m-d') }}</td>
                                 <td data-th="Действие"> <a href="{{route('meal.edit',$meal->id)}}" class="btn btn-outline-success"> <i class="fa fa-edit"></i></a>

@@ -7,6 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+
+
+
+
+
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -32,9 +39,9 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a style="font-size: 16px" href="/routes" class="sidebar-link">
+                    <a style="font-size: 16px" href="{{route('userList.meal')}}" class="sidebar-link">
                         <i class="fa fa-calendar fa-list pe-2"></i>
-                        Расписание
+                        Приемы пищи
                     </a>
                 </li>
                 <li class="sidebar-item">
