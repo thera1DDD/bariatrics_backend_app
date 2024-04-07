@@ -269,6 +269,7 @@ html[data-bs-theme="light"] .theme-toggle .fa-sun {
 .btn-outline-danger{
     height: 34px;
     width: 55px;
+    margin-bottom: 7px;
 
 }
 
@@ -283,6 +284,13 @@ html[data-bs-theme="light"] .theme-toggle .fa-sun {
     height: 34px;
     width: 55px;
     margin-bottom: 7px;
+}
+
+.btn-outline-primary{
+    height: 34px;
+    width: 55px;
+    margin-bottom: 7px;
+    color:coral;
 }
 
 

@@ -12,8 +12,8 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label for="status">Тип:</label>
-                        <select name="status" id="status" class="form-control custom-input">
+                        <label for="type">Тип:</label>
+                        <select name="type" id="type" class="form-control custom-input">
                             <option value="breakfast" {{ $meal->type == 'breakfast' ? 'selected' : '' }}> Завтрак</option>
                             <option value="second" {{ $meal->type == 'second' ? 'selected' : '' }}> Второе</option>
                             <option value="lunch" {{ $meal->type == 'lunch' ? 'selected' : '' }}> Обед</option>
