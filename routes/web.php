@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\MealController;
+use App\Http\Controllers\Admin\RoutingController;
+use App\Http\Controllers\Admin\StepController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\WaterController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,75 +30,76 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/',[\App\Http\Controllers\Admin\HomeController::class,'index'])->name('home.index');
-    Route::get('/chart',[\App\Http\Controllers\Admin\HomeController::class,'routesChart'])->name('home.index.chart');
+    Route::get('/',[HomeController::class,'index'])->name('home.index');
+    Route::get('/chart',[HomeController::class,'routesChart'])->name('home.index.chart');
 
     Route::group(['prefix'=>'meals',],function (){
-        Route::put('{meal}',[\App\Http\Controllers\Admin\MealController::class, 'update'])->name('meal.update');
-
-        Route::post('/store', [\App\Http\Controllers\Admin\MealController::class, 'storeMeal'])->name('meal.store');
-        Route::delete('{meal}',[\App\Http\Controllers\Admin\MealController::class,'destroyMeal'])->name('meal.delete');
-        Route::get('/',[\App\Http\Controllers\Admin\MealController::class,'index'])->name('userList.meal');
-        Route::get('/{user}/show',[\App\Http\Controllers\Admin\MealController::class, 'showMeals'])->name('meal.index');
-        Route::get('/{user}/create', [\App\Http\Controllers\Admin\MealController::class, 'createMeal'])->name('meal.create');
-        Route::get('/{meal}/edit',[\App\Http\Controllers\Admin\MealController::class, 'edit'])->name('meal.edit');
-        Route::get('/search',[\App\Http\Controllers\Admin\MealController::class,'userSearch'])->name('userList.search.water');
-        Route::get('/daySearch',[\App\Http\Controllers\Admin\MealController::class,'waterSearch'])->name('waterList.search');
-        Route::delete('{waterDay}',[\App\Http\Controllers\Admin\MealController::class,'destroyWaterDay'])->name('waterDays.delete');
-        Route::get('/{users_id}/create', [\App\Http\Controllers\Admin\MealController::class, 'create'])->name('waterDay.create');
-
-
+        Route::group(['prefix'=>'mealsProducts',],function (){
+            Route::get('/{meal}/show',[MealController::class, 'showProducts'])->name('mealsProduct.index');
+            Route::delete('{mealsProduct}',[MealController::class,'destroyProduct'])->name('mealsProduct.delete');
+            Route::put('{mealsProduct}',[MealController::class, 'updateProduct'])->name('mealsProduct.update');
+            Route::get('/{mealsProduct}/edit',[MealController::class, 'editProduct'])->name('mealsProduct.edit');
+            Route::post('/store', [MealController::class, 'storeProduct'])->name('mealsProduct.store');
+            Route::get('/{meal}/create', [MealController::class, 'createProduct'])->name('mealProduct.create');
+            Route::get('/{category}/getFoods', [MealController::class, 'getFoodsByCategory'])->name('mealsProduct.by.category');
+        });
+        Route::put('{meal}',[MealController::class, 'update'])->name('meal.update');
+        Route::post('/store', [MealController::class, 'storeMeal'])->name('meal.store');
+        Route::delete('{meal}',[MealController::class,'destroyMeal'])->name('meal.delete');
+        Route::get('/',[MealController::class,'index'])->name('userList.meal');
+        Route::get('/{user}/show',[MealController::class, 'showMeals'])->name('meal.index');
+        Route::get('/{user}/create', [MealController::class, 'createMeal'])->name('meal.create');
+        Route::get('/{meal}/edit',[MealController::class, 'edit'])->name('meal.edit');
+        Route::get('/search',[MealController::class,'userSearch'])->name('userList.search.meal');
+        Route::get('/daySearch',[MealController::class,'waterSearch'])->name('meal.search');
     });
-
-
-
     Route::group(['prefix'=>'categories',],function (){
-        Route::delete('{food}',[\App\Http\Controllers\Admin\CategoryController::class,'destroyFood'])->name('food.delete');
-        Route::get('/{food}/foodEdit',[\App\Http\Controllers\Admin\CategoryController::class, 'editFood'])->name('food.edit');
-        Route::post('/storeFood', [\App\Http\Controllers\Admin\CategoryController::class, 'storeFood'])->name('food.store');
-        Route::put('/{food}', [\App\Http\Controllers\Admin\CategoryController::class, 'updateFood'])->name('food.update');
-        Route::get('/{category}/create', [\App\Http\Controllers\Admin\CategoryController::class, 'createFood'])->name('food.create');
-        Route::get('/{category}/show',[\App\Http\Controllers\Admin\CategoryController::class, 'showCategoryFoods'])->name('food.show');
-        Route::get('/',[\App\Http\Controllers\Admin\CategoryController::class,'index'])->name('category.index');
-        Route::delete('{category}',[\App\Http\Controllers\Admin\CategoryController::class,'destroy'])->name('category.delete');
+        Route::delete('{food}',[CategoryController::class,'destroyFood'])->name('food.delete');
+        Route::get('/{food}/foodEdit',[CategoryController::class, 'editFood'])->name('food.edit');
+        Route::post('/storeFood', [CategoryController::class, 'storeFood'])->name('food.store');
+        Route::put('/{food}', [CategoryController::class, 'updateFood'])->name('food.update');
+        Route::get('/{category}/create', [CategoryController::class, 'createFood'])->name('food.create');
+        Route::get('/{category}/show',[CategoryController::class, 'showCategoryFoods'])->name('food.show');
+        Route::get('/',[CategoryController::class,'index'])->name('category.index');
+        Route::delete('{category}',[CategoryController::class,'destroy'])->name('category.delete');
         ;
-        Route::get('/create', [\App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('category.create');
-        Route::post('/store', [\App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('category.store');
-        Route::get('/{category}/edit',[\App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('category.edit');
-        Route::put('{category}',[\App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('category.update');
+        Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('/{category}/edit',[CategoryController::class, 'edit'])->name('category.edit');
+        Route::put('{category}',[CategoryController::class, 'update'])->name('category.update');
     });
 
     Route::group(['prefix'=>'routes',],function (){
-        Route::get('/',[\App\Http\Controllers\Admin\RoutingController::class,'index'])->name('routing.index');
-        Route::delete('{routing}',[\App\Http\Controllers\Admin\RoutingController::class,'destroy'])->name('routing.delete');
-        Route::get('/create', [\App\Http\Controllers\Admin\RoutingController::class, 'create'])->name('routing.create');
-        Route::post('/store', [\App\Http\Controllers\Admin\RoutingController::class, 'store'])->name('routing.store');
-        Route::get('/{routing}/edit',[\App\Http\Controllers\Admin\RoutingController::class, 'edit'])->name('routing.edit');
-        Route::put('{routing}',[\App\Http\Controllers\Admin\RoutingController::class, 'update'])->name('routing.update');
+        Route::get('/',[RoutingController::class,'index'])->name('routing.index');
+        Route::delete('{routing}',[RoutingController::class,'destroy'])->name('routing.delete');
+        Route::get('/create', [RoutingController::class, 'create'])->name('routing.create');
+        Route::post('/store', [RoutingController::class, 'store'])->name('routing.store');
+        Route::get('/{routing}/edit',[RoutingController::class, 'edit'])->name('routing.edit');
+        Route::put('{routing}',[RoutingController::class, 'update'])->name('routing.update');
     });
 
 
     Route::group(['prefix'=>'waterControl',],function (){
-        Route::get('/',[\App\Http\Controllers\Admin\WaterController::class,'index'])->name('userList.water');
-        Route::get('/search',[\App\Http\Controllers\Admin\WaterController::class,'userSearch'])->name('userList.search.water');
-        Route::get('/daySearch',[\App\Http\Controllers\Admin\WaterController::class,'waterSearch'])->name('waterList.search');
-        Route::delete('{waterDay}',[\App\Http\Controllers\Admin\WaterController::class,'destroyWaterDay'])->name('waterDays.delete');
-        Route::get('/{users_id}/create', [\App\Http\Controllers\Admin\WaterController::class, 'create'])->name('waterDay.create');
-        Route::post('/store', [\App\Http\Controllers\Admin\WaterController::class, 'storeWaterDay'])->name('waterDay.store');
-        Route::get('/{user}/show',[\App\Http\Controllers\Admin\WaterController::class, 'showWaterDays'])->name('waterDays.show');
-        Route::get('/{waterDay}/edit',[\App\Http\Controllers\Admin\WaterController::class, 'editWaterDay'])->name('waterDays.edit');
-        Route::put('{waterDay}',[\App\Http\Controllers\Admin\WaterController::class, 'update'])->name('waterDay.update');
+        Route::get('/',[WaterController::class,'index'])->name('userList.water');
+        Route::get('/search',[WaterController::class,'userSearch'])->name('userList.search.water');
+        Route::get('/daySearch',[WaterController::class,'waterSearch'])->name('waterList.search');
+        Route::delete('{waterDay}',[WaterController::class,'destroyWaterDay'])->name('waterDays.delete');
+        Route::get('/{users_id}/create', [WaterController::class, 'create'])->name('waterDay.create');
+        Route::post('/store', [WaterController::class, 'storeWaterDay'])->name('waterDay.store');
+        Route::get('/{user}/show',[WaterController::class, 'showWaterDays'])->name('waterDays.show');
+        Route::get('/{waterDay}/edit',[WaterController::class, 'editWaterDay'])->name('waterDays.edit');
+        Route::put('{waterDay}',[WaterController::class, 'update'])->name('waterDay.update');
     });
     Route::group(['prefix'=>'stepControl',],function (){
-        Route::get('/',[\App\Http\Controllers\Admin\StepController::class,'userListindex'])->name('userList.step');
-        Route::get('/search',[\App\Http\Controllers\Admin\StepController::class,'userSearch'])->name('userList.search.step');
-        Route::get('/daySearch',[\App\Http\Controllers\Admin\StepController::class,'stepDaySearch'])->name('stepList.search');
-        Route::delete('{stepDay}',[\App\Http\Controllers\Admin\StepController::class,'destroyStepDay'])->name('stepDay.delete');
-        Route::get('/{users_id}/create', [\App\Http\Controllers\Admin\StepController::class, 'create'])->name('stepDay.create');
-        Route::post('/store', [\App\Http\Controllers\Admin\StepController::class, 'storeDay'])->name('stepDay.store');
-        Route::get('/{user}/show',[\App\Http\Controllers\Admin\StepController::class, 'showStepDays'])->name('stepDays.show');
-        Route::get('/{stepDay}/edit',[\App\Http\Controllers\Admin\StepController::class, 'editStepDay'])->name('stepDays.edit');
-        Route::put('{stepDay}',[\App\Http\Controllers\Admin\StepController::class, 'updateDay'])->name('stepDay.update');
+        Route::get('/',[StepController::class,'userListindex'])->name('userList.step');
+        Route::get('/search',[StepController::class,'userSearch'])->name('userList.search.step');
+        Route::get('/daySearch',[StepController::class,'stepDaySearch'])->name('stepList.search');
+        Route::delete('{stepDay}',[StepController::class,'destroyStepDay'])->name('stepDay.delete');
+        Route::get('/{users_id}/create', [StepController::class, 'create'])->name('stepDay.create');
+        Route::post('/store', [StepController::class, 'storeDay'])->name('stepDay.store');
+        Route::get('/{user}/show',[StepController::class, 'showStepDays'])->name('stepDays.show');
+        Route::get('/{stepDay}/edit',[StepController::class, 'editStepDay'])->name('stepDays.edit');
+        Route::put('{stepDay}',[StepController::class, 'updateDay'])->name('stepDay.update');
     });
 
     Route::group(['prefix'=>'profile',],function (){
@@ -101,12 +109,12 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['prefix'=>'users',],function (){
-        Route::get('/',[\App\Http\Controllers\Admin\UserController::class,'index'])->name('user.index');
-        Route::delete('{user}',[\App\Http\Controllers\Admin\UserController::class,'destroy'])->name('user.delete');
-        Route::get('/create', [\App\Http\Controllers\Admin\UserController::class, 'create'])->name('user.create');
-        Route::post('/store', [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('user.store');
-        Route::get('/{user}/edit',[\App\Http\Controllers\Admin\UserController::class, 'edit'])->name('user.edit');
-        Route::put('{user}',[\App\Http\Controllers\Admin\UserController::class, 'update'])->name('user.update');
+        Route::get('/',[UserController::class,'index'])->name('user.index');
+        Route::delete('{user}',[UserController::class,'destroy'])->name('user.delete');
+        Route::get('/create', [UserController::class, 'create'])->name('user.create');
+        Route::post('/store', [UserController::class, 'store'])->name('user.store');
+        Route::get('/{user}/edit',[UserController::class, 'edit'])->name('user.edit');
+        Route::put('{user}',[UserController::class, 'update'])->name('user.update');
     });
 
 

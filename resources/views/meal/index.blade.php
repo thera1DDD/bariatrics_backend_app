@@ -35,7 +35,7 @@
                                 <td data-th="Статус">@if($meal->ate_at != null)Cъеден@else Не съеден@endif</td>
                                 <td data-th="Дата">{{ \Carbon\Carbon::parse($meal->meal_end_at)->format('Y-m-d') }}</td>
                                 <td data-th="Действие">
-                                    <a href="{{route('meal.edit',$meal->id)}}" class="btn btn-outline-primary">+<i class="fa-solid fa-pizza-slice"></i></a>
+                                    <a href="{{route('mealsProduct.index',$meal->id)}}" class="btn btn-outline-primary">+<i class="fa-solid fa-pizza-slice"></i></a>
                                     <form action="{{route('meal.delete',$meal->id) }}" method="post">
                                         @csrf
                                         @method('delete')
