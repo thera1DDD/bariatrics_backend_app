@@ -67,6 +67,7 @@ class MealController extends Controller
     {
         return view('meal.MealsProduct.create',with([
             'meal' => $meal,
+            'food'=> Food::query()->select('id','name')->limit(1)->first(),
             'categories'=> Category::query()->select('id','name')->get()]));
     }
     public function createMeal(User $user)

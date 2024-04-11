@@ -34,16 +34,16 @@
                     <div class="form-group">
                         <label for="categories">Блюдо</label>
                         <select  name="foods_id"  id="foods_id"   class="form-control custom-input"  style="width: 100%;">
-                            <option value="{{$mealsProduct->food->id}}">
-                                {{$mealsProduct->food->name}}
+                            <option value="{{$food->id}}">
+                                {{$food->name}}
                             </option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="quantity">Количество:</label>
-                        <input name="quantity" id="quantity" class="form-control custom-input" value="{{ $mealsProduct->quantity }}"  required>
+                        <input name="quantity" id="quantity" class="form-control custom-input"   required>
                     </div>
-                    <input hidden="hidden" name="users_id" value="{{$meal->id}}" >
+                    <input hidden="hidden" name="meals_id" value="{{$meal->id}}" >
                     <br>
                     <div class="form-group">
                         <button type="submit" class="btn btn-outline-secondary">Создать</button>
