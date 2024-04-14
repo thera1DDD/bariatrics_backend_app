@@ -10,6 +10,9 @@ use App\Models\User;
 use App\Models\Water;
 use App\Services\WaterService;
 use Dflydev\DotAccessData\Data;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -30,25 +33,24 @@ class WaterController extends Controller
     }
     public function destroy(Water $offer): RedirectResponse
     {
-        $offer->delete();
+        $offer->forceDelete();
         return redirect()->route('offer.index')->with('error','Удаленно');
     }
 
-    public function index()
+    public function index(): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('waterControl.userList')->with(['water' => User::with('water')->paginate(3)]);
+        return view('waterControl.userList')
+                ->with(['water' => User::with('water')
+                ->paginate(3)]);
     }
 
-    public function userSearch(Request $request)
+    public function userSearch(Request $request): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        $search = $request->input('search');
-        $users = User::where('name', 'like', '%'.$search.'%')
-            ->orWhere('surname', 'like', '%'.$search.'%')
-            ->paginate(10);
-
-        return view('waterControl.userList')->with(['water'=>$users]);
+        return view('waterControl.userList')
+                ->with(['water'=>(new User)
+                ->searchByUser($request->input('search'))]);
     }
-    public function waterSearch(Request $request)
+    public function waterSearch(Request $request): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $userId = $request->input('users_id');
         $search = $request->input('date');
@@ -60,7 +62,7 @@ class WaterController extends Controller
     }
 
 
-    public function create($users_id)
+    public function create($users_id): View|\Illuminate\Foundation\Application|Factory|Application
     {
         return view('waterControl.create',compact('users_id'));
     }

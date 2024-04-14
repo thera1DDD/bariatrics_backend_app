@@ -67,4 +67,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Meal::class,'users_id','id');
     }
+
+    public function searchByUser($search)
+    {
+        $users = User::where('name', 'like', '%'.$search.'%')
+            ->orWhere('surname', 'like', '%'.$search.'%')
+            ->paginate(10);
+        return $users;
+    }
 }

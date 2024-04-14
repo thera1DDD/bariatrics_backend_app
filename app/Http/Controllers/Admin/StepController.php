@@ -4,26 +4,30 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Offer\StoreRequest;
+use App\Http\Requests\Step\SearchRequest;
 use App\Http\Requests\Step\UpdateRequest;
 use App\Models\Step;
 use App\Models\User;
 use App\Services\StepService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class StepController extends Controller
 {
-    protected $step;
+    protected $stepService;
 
     public function __construct(StepService $step)
     {
-        $this->step = $step;
+        $this->stepService = $step;
     }
 
     public function storeDay(\App\Http\Requests\Step\StoreRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $this->step->storeDay($data);
+        $this->stepService->storeDay($data);
         return redirect()->route('stepDays.show',$data['users_id'])->with('success','Добавленно');
     }
     public function destroy(Step $step): RedirectResponse
@@ -39,24 +43,19 @@ class StepController extends Controller
             ->paginate(3)]);
     }
 
-    public function userSearch(Request $request)
+    public function userSearch(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $search = $request->input('search');
-        $users = User::where('name', 'like', '%'.$search.'%')
-            ->orWhere('surname', 'like', '%'.$search.'%')
-            ->paginate(10);
-
-        return view('stepControl.userList')->with(['users'=>$users]);
+        return view('stepControl.userList')
+               ->with(['users'=>(new User)
+               ->searchByUser($request->input('search'))]);
     }
-    public function stepDaySearch(Request $request)
+    public function stepDaySearch(SearchRequest $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $userId = $request->input('users_id');
-        $search = $request->input('date');
-        $user = User::findOrFail($request->input('users_id'));
-        $steps = Step::where('date', 'like', '%'.$search.'%')
-            ->where('users_id',$userId )
-            ->paginate(10);
-        return view('stepControl.stepList')->with(['steps'=>$steps,'user'=>$user]);
+        $result = $this->stepService->searchByDay($request->validated());
+        return view('stepControl.stepList')->with([
+            'steps' => $result['steps'],
+            'user' => $result['user'],
+        ]);
     }
 
 
@@ -75,13 +74,13 @@ class StepController extends Controller
     public function updateDay(UpdateRequest $request, Step $stepDay): RedirectResponse
     {
         $data = $request->validated();
-        $this->step->updateDay($data,$stepDay);
+        $this->stepService->updateDay($data,$stepDay);
         return redirect()->route('stepDays.show',$stepDay->users_id)->with('success','Обновленно');
     }
 
-    public function showStepDays(User $user)
+    public function showStepDays(User $user): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $steps = Step::query()->where('users_id',$user->id)->with('user')->paginate(3);
+        $steps = $this->stepService->showDays($user);
         return view('stepControl.stepList',compact('steps','user'));
     }
 
