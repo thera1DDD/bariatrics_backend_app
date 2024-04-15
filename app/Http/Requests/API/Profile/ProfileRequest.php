@@ -23,10 +23,13 @@ class ProfileRequest extends FormRequest
     {
         return [
             'users_id' => 'required|integer',
-            'phone_number' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:users,email,' . auth()->id(),
+            'phone_number' => 'nullable|string|unique:users,phone_number',
             'name' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
+            'weight' => 'nullable|string|max:255',
+            'weight_before' => 'nullable|string|max:255',
+            'gender' => 'nullable|string|max:255',
+            'age' => 'nullable|string|max:255',
+            'height' => 'nullable|string|max:255',
         ];
     }
     public function messages(): array

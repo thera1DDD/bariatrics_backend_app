@@ -5,33 +5,40 @@ namespace App\Services;
 use App\Http\Controllers\Controller;
 use App\Models\Offer;
 use App\Models\User;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class ProfileService extends Controller
 {
 
-    public function show($request)
+    public function show($request): JsonResponse
     {
-        $user = User::query()
-            ->where('id',$request->id)
-            ->first();
-        if(isset($user)) {
-            return response()->json(['user' => $user]);
-        }
-        else{
-            return response('user not found',404);
+        $user = User::query()->where('id', $request->id)->first();
+        if ($user) {
+            $bmi = $user->calculateBMI();
+            dd($bmi);
+            $responseData = ['user' => $user];
+            if ($bmi !== null) {
+                $responseData['bmi'] = $bmi;
+            }
+            return response()->json($responseData);
+        } else {
+            return response()->json(['error' => 'User not found'], 404);
         }
     }
-    public function update($data): \Illuminate\Http\JsonResponse
+    public function update($data): JsonResponse
     {
         try {
             $user = User::find($data['users_id']);
 
             if ($user) {
-                if (isset($data['email'])) {
-                    $existingUser = User::where('email', $data['email'])->where('id', '!=', $data['users_id'])->first();
+                if (isset($data['phone_number'])) {
+                    $existingUser = User::where('phone_number', $data['phone_number'])->where('id', '!=', $data['users_id'])->first();
                     if (isset($existingUser)) {
-                        return response()->json(['success' => false, 'message' => 'Электронная почта уже существует'], 422);
+                        return response()->json(['success' => false, 'message' => 'Номер телефона уже существует'], 422);
                     }
                 }
                 $user->fill($data);

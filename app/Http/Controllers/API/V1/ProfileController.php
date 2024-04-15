@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Profile\ProfileRequest;
 use App\Http\Requests\API\Profile\ReplyOfferRequest;
 use App\Services\ProfileService;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -19,7 +22,7 @@ class ProfileController extends Controller
     {
         $this->profileService = $profileService;
     }
-    public function show(Request $request): Application|\Illuminate\Http\Response|JsonResponse|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    public function show(Request $request): Application|Response|JsonResponse|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         return $this->profileService->show($request);
     }
@@ -27,6 +30,10 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request): JsonResponse
     {
         $data = $request->validated();
+        if ($request->hasFile('main_image')) {
+            $path = $request->file('main_image')->store('images/users', 'public');
+            $data['main_image'] = Storage::disk('public')->url($path);
+        }
         return $this->profileService->update($data);
     }
 
