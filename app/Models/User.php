@@ -53,38 +53,30 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-
-    // app/Models/User.php
-
     public function calculateBMI(): ?float
     {
+        if ($this->height && $this->weight_before) {
+            $heightWeight = explode(';', $this->height);
 
-        $heightWeight = explode(';', $this->height);
-        // Проверяем, есть ли два значения после разделителя
-        if (count($heightWeight) === 2) {
-            // Получаем значение роста (первый элемент массива)
-            $height = (float)$heightWeight[0];
-            // Получаем значение веса (второй элемент массива)
-            $weight = (float)$this->weight_before;
+            // Проверяем, есть ли два значения после разделителя
+            if (count($heightWeight) === 2) {
+                // Получаем значение роста (первый элемент массива)
+                $height = (float)$heightWeight[0];
+                // Получаем значение веса (второй элемент массива)
+                $weight = (float)$heightWeight[1];
 
-            // Проверяем, что значения роста и веса больше нуля
-            if ($height > 0 && $weight > 0) {
-                // Расчет ИМТ
-                $heightInMeters = $height / 100; // Переводим рост в метры
-                $bmi = $weight / ($heightInMeters * $heightInMeters);
+                // Проверяем, что значения роста и веса больше нуля
+                if ($height > 0 && $weight > 0) {
+                    // Расчет ИМТ
+                    $heightInMeters = $height / 100; // Переводим рост в метры
+                    $bmi = $weight / ($heightInMeters * $heightInMeters);
 
+                    return $bmi;
+                }
             }
         }
-
+        return null;
     }
-
-
-
-
-
-
-
-
 
     public function water(): HasMany
     {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Profile\ProfileRequest;
 use App\Http\Requests\API\Profile\ReplyOfferRequest;
+use App\Models\User;
 use App\Services\ProfileService;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
@@ -24,7 +25,19 @@ class ProfileController extends Controller
     }
     public function show(Request $request): Application|Response|JsonResponse|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
-        return $this->profileService->show($request);
+        $user = User::find($request->id);
+        if ($user) {
+            $bmi = $user->calculateBMI();
+            $responseData = ['user' => $user];
+
+            if ($bmi !== null) {
+                $responseData['bmi'] = $bmi;
+            }
+
+            return response()->json($responseData);
+        } else {
+            return response()->json(['error' => 'User not found'], 404);
+        }
     }
 
     public function update(ProfileRequest $request): JsonResponse
