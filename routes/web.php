@@ -54,6 +54,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/daySearch',[MealController::class,'waterSearch'])->name('meal.search');
     });
     Route::group(['prefix'=>'categories',],function (){
+        Route::delete('{category}',[CategoryController::class,'destroy'])->name('category.delete');
+        Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('/{category}/edit',[CategoryController::class, 'edit'])->name('category.edit');
+        Route::put('/{category}/update',[CategoryController::class, 'update'])->name('category.update');
         Route::delete('{food}',[CategoryController::class,'destroyFood'])->name('food.delete');
         Route::get('/{food}/foodEdit',[CategoryController::class, 'editFood'])->name('food.edit');
         Route::post('/storeFood', [CategoryController::class, 'storeFood'])->name('food.store');
@@ -61,12 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{category}/create', [CategoryController::class, 'createFood'])->name('food.create');
         Route::get('/{category}/show',[CategoryController::class, 'showCategoryFoods'])->name('food.show');
         Route::get('/',[CategoryController::class,'index'])->name('category.index');
-        Route::delete('{category}',[CategoryController::class,'destroy'])->name('category.delete');
-        ;
-        Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
-        Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
-        Route::get('/{category}/edit',[CategoryController::class, 'edit'])->name('category.edit');
-        Route::put('{category}',[CategoryController::class, 'update'])->name('category.update');
+
     });
 
     Route::group(['prefix'=>'routes',],function (){

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Meal;
+namespace App\Http\Requests\API\MainDIsplay;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MealRequest extends FormRequest
+class GetMealRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,7 @@ class MealRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'day_id' => 'nullable',
-            'meal_start_at' => 'nullable',
-            'meal_end_at' => 'nullable',
-            'ate_at' => 'nullable',
-            'type' => 'nullable',
-            'users_id' => 'nullable',
+            'users_id'=>'required',
         ];
     }
 }

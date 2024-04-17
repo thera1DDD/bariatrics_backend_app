@@ -22,9 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::group(['prefix'=>'mainDisplay'],function (){
-    Route::post('/sendOffer',[MainDisplayController::class,'sendOffer']);
-    Route::get('/getRoutes',[MainDisplayController::class,'getRoutes']);
-    Route::get('/filter',[MainDisplayController::class,'filterRoutes']);
+//    Route::post('/sendOffer',[MainDisplayController::class,'sendOffer']);
+//    Route::get('/getRoutes',[MainDisplayController::class,'getRoutes']);
+//    Route::get('/filter',[MainDisplayController::class,'filterRoutes']);
+    Route::get('/getRoutes',[MainDisplayController::class,'getMeals']);
+
 });
 Route::group(['prefix'=>'profile',],function (){
     Route::get('/show',[ProfileController::class,'show']);

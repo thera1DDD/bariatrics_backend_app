@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('weight')->nullable();
-            $table->string('weight_before')->nullable();
-            $table->string('height')->nullable();
-            $table->string('age')->nullable();
+            $table->integer('weight')->nullable();
+            $table->integer('weight_before')->nullable();
+            $table->integer('height')->nullable();
+            $table->integer('age')->nullable();
             $table->string('role')->nullable();
             $table->dateTime('surgery_date')->nullable();
             $table->enum('gender',['male','female'])->nullable();

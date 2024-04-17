@@ -58,12 +58,12 @@ class RoutingController extends Controller
         return redirect()->route('routing.index')->with('success','Успешно созданно');
     }
 
-    public function update(UPDA $request, Routing $routing): \Illuminate\Http\RedirectResponse
-    {
-        $data = $request->validated();
-        $this->routingService->update($data,$routing);
-        return redirect()->route('routing.index')->with('success','Обновленно');
-    }
+//    public function update( $request, Routing $routing): \Illuminate\Http\RedirectResponse
+//    {
+//        $data = $request->validated();
+//        $this->routingService->update($data,$routing);
+//        return redirect()->route('routing.index')->with('success','Обновленно');
+//    }
 
     public function edit(Routing $routing): \Illuminate\Contracts\View\View|Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {

@@ -17,11 +17,11 @@
                         <thead>
                         <tr>
                             <th scope="col">Id</th>
+                            <th scope="col">День реабилитации</th>
                             <th scope="col">Тип</th>
                             <th scope="col">Начало</th>
                             <th scope="col">Конец</th>
                             <th scope="col">Статус</th>
-                            <th scope="col">Дата</th>
                             <th scope="col">Действие</th>
                         </tr>
                         </thead>
@@ -29,11 +29,12 @@
                         @foreach($meals as $meal)
                             <tr>
                                 <td data-th="Id">{{$meal->id}}</td>
+                                <td data-th="Id">{{$meal->day->day}}</td>
                                 <td data-th="Тип">{{ $mealTranslations[$meal->type] }}</td>
                                 <td data-th="Начало">{{$meal->meal_start_at}}</td>
                                 <td data-th="Конец">{{$meal->meal_end_at}}</td>
                                 <td data-th="Статус">@if($meal->ate_at != null)Cъеден@else Не съеден@endif</td>
-                                <td data-th="Дата">{{ \Carbon\Carbon::parse($meal->meal_end_at)->format('Y-m-d') }}</td>
+{{--                                <td data-th="Дата">{{ \Carbon\Carbon::parse($meal->meal_end_at)->format('Y-m-d') }}</td>--}}
                                 <td data-th="Действие">
                                     <a href="{{route('mealsProduct.index',$meal->id)}}" class="btn btn-outline-primary">+<i class="fa-solid fa-pizza-slice"></i></a>
                                     <form action="{{route('meal.delete',$meal->id) }}" method="post">

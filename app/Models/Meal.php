@@ -10,10 +10,20 @@ class Meal extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type','meal_start_at','meal_end_at','users_id','ate_at'];
+    protected $fillable = ['type','meal_start_at','meal_end_at','users_id','ate_at','day_id'];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class,'users_id','id');
+    }
+
+    public function day(): BelongsTo
+    {
+        return $this->belongsTo(Day::class,'day_id','id');
+    }
+
+    public function item(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(MealsFood::class,'meals_id','id');
     }
 }

@@ -9,6 +9,14 @@
                 <form action="{{ route('meal.store') }}" method="post">
                     @csrf
                     <div class="form-group">
+                        <label for="day_id">День реабилитации</label>
+                        <select name="day_id" id="day_id" class="form-control custom-input">
+                            @foreach($days as $day)
+                                <option value="{{ $day->id }}">{{ $day->day }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="type">Тип</label>
                         <select name="type" id="type" class="form-control custom-input">
                             <option value="breakfast">Завтрак</option>

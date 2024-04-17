@@ -4,7 +4,7 @@
     <div class="container mt-2">
         <div class="card shadow">
             <div class="card-body">
-                <h5 class="card-title text-2xl">Диаграмма успешных сделок</h5>
+{{--                <h5 class="card-title text-2xl">Диаграмма успешных сделок</h5>--}}
                 <canvas id="routesChart"></canvas>
             </div>
         </div>

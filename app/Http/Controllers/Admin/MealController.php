@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Meal\MealRequest;
 use App\Http\Requests\MealsFood\MealFoodRequest;
 use App\Models\Category;
+use App\Models\Day;
 use App\Models\Food;
 use App\Models\Meal;
 use App\Models\MealsFood;
@@ -28,6 +29,11 @@ class MealController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function edit(Meal $meal)
+    {
+        return view('meal.edit',compact('meal'));
+    }
 
     public function destroyProduct(MealsFood $mealsProduct): RedirectResponse
     {
@@ -72,7 +78,8 @@ class MealController extends Controller
     }
     public function createMeal(User $user)
     {
-        return view('meal.create',compact('user'));
+        $days = Day::query()->limit(40)->get();
+        return view('meal.create',compact('user','days'));
     }
 
     /**
