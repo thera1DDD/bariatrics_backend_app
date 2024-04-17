@@ -22,6 +22,14 @@
                 <form action="{{ route('stepDay.store') }}" method="post">
                     @csrf
                     <div class="form-group">
+                        <label for="day_id">День реабилитации</label>
+                        <select name="day_id" id="day_id" class="form-control custom-input">
+                            @foreach($days as $day)
+                                <option value="{{ $day->id }}">{{ $day->day }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="goal">Цель:</label>
                         <input type="text" name="goal" id="goal" class="form-control custom-input" required>
                     </div>

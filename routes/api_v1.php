@@ -4,6 +4,7 @@ use App\Http\Controllers\API\V1\AuthController;
 use App\Http\Controllers\API\V1\MainDisplayController;
 use App\Http\Controllers\API\V1\PersonalRoutesController;
 use App\Http\Controllers\API\V1\ProfileController;
+use App\Http\Controllers\API\V1\StepDisplayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,16 @@ Route::group(['prefix'=>'mainDisplay'],function (){
 //    Route::post('/sendOffer',[MainDisplayController::class,'sendOffer']);
 //    Route::get('/getRoutes',[MainDisplayController::class,'getRoutes']);
 //    Route::get('/filter',[MainDisplayController::class,'filterRoutes']);
-    Route::get('/getRoutes',[MainDisplayController::class,'getMeals']);
+    Route::get('/getMeals',[MainDisplayController::class,'getMeals']);
+    Route::put('/eatMeal',[MainDisplayController::class,'eatMeal']);
 
 });
+
+Route::group(['prefix'=>'stepDisplay'],function (){
+    Route::get('/getSteps',[StepDisplayController::class,'getSteps']);
+});
+
+
 Route::group(['prefix'=>'profile',],function (){
     Route::get('/show',[ProfileController::class,'show']);
     Route::put('/update',[ProfileController::class,'update']);

@@ -10,7 +10,11 @@
                     <div class="mb-3">
                         <h6 style="font-size: 20px">Содержимые блюда</h6>
                     </div>
-                    <a href="{{route('mealProduct.create',$meals_id)}}" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
+                   <div>
+                       <a href="{{ route('meal.index',$meal->users_id) }}" class="btn btn-outline-secondary"><i class="fa fa-arrow-left"></i></a>
+
+                       <a href="{{route('mealProduct.create',$meal->id)}}" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
+                   </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">

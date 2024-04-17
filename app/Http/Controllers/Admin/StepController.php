@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Offer\StoreRequest;
 use App\Http\Requests\Step\SearchRequest;
 use App\Http\Requests\Step\UpdateRequest;
+use App\Models\Day;
 use App\Models\Step;
 use App\Models\User;
 use App\Services\StepService;
@@ -61,7 +62,8 @@ class StepController extends Controller
 
     public function create($users_id)
     {
-        return view('stepControl.create',compact('users_id'));
+        $days = Day::query()->limit(40)->get();
+        return view('stepControl.create',compact('users_id','days'));
     }
 
 //    public function store(StoreRequest $request): RedirectResponse

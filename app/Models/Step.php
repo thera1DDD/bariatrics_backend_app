@@ -10,10 +10,16 @@ class Step extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['goal','current','kkal', 'distance','achieved_at','users_id','date'];
+    protected $fillable = ['goal','current','kkal', 'distance','achieved_at','users_id','date','day_id'];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class,'users_id','id');
     }
+
+    public function day(): BelongsTo
+    {
+        return $this->belongsTo(Day::class,'day_id','id');
+    }
+
 }

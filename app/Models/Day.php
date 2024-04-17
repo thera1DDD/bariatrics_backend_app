@@ -14,4 +14,9 @@ class Day extends Model
     {
         return $this->hasMany(Meal::class,'day_id','id');
     }
+
+    public function step(): HasMany
+    {
+        return $this->hasMany(Step::class,'day_id','id');
+    }
 }

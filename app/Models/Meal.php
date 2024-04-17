@@ -10,7 +10,7 @@ class Meal extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type','meal_start_at','meal_end_at','users_id','ate_at','day_id'];
+    protected $fillable = ['type','meal_start_at','meal_end_at','users_id','ate_at','day_id','total_kcal'];
 
     public function user(): BelongsTo
     {

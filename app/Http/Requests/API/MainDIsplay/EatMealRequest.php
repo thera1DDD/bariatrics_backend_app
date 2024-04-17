@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Step;
+namespace App\Http\Requests\API\MainDIsplay;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class EatMealRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +22,8 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'goal' => 'nullable',
-            'current' => 'nullable',
-            'achieved_at' => 'nullable',
-            'kkal' => 'nullable',
-            'distance' => 'nullable',
-            'date' => 'nullable',
-            'users_id' => 'nullable',
-            'day_id' => 'nullable',
+            'meals_id'=>'nullable',
+            'ate_at'=>'nullable',
         ];
     }
 }

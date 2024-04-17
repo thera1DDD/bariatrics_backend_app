@@ -10,7 +10,12 @@
                     <div class="mb-3">
                         <h6 style="font-size: 20px">Приемы пищи</h6>
                     </div>
-                    <a href="{{route('meal.create',$user->id)}}" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
+                    <div>
+                        <a href="{{ route('userList.meal') }}" class="btn btn-outline-secondary"><i class="fa fa-arrow-left"></i></a>
+
+                        <a href="{{route('meal.create',$user->id)}}" class="btn btn-outline-secondary"><i class="fas fa-plus-circle"></i> </a>
+                    </div>
+
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -29,7 +34,7 @@
                         @foreach($meals as $meal)
                             <tr>
                                 <td data-th="Id">{{$meal->id}}</td>
-                                <td data-th="Id">{{$meal->day->day}}</td>
+                                <td data-th="Id">{{$meal->day->day ?? ''}}</td>
                                 <td data-th="Тип">{{ $mealTranslations[$meal->type] }}</td>
                                 <td data-th="Начало">{{$meal->meal_start_at}}</td>
                                 <td data-th="Конец">{{$meal->meal_end_at}}</td>

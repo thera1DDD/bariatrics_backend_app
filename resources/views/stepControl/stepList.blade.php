@@ -30,6 +30,7 @@
                         <thead>
                         <tr>
                             <th scope="col">Id</th>
+                            <th scope="col">День реабилитации</th>
                             <th scope="col">Цель</th>
                             <th scope="col">Текущий результат</th>
                             <th scope="col">Каллории</th>
@@ -43,6 +44,7 @@
                         @foreach($steps as $step)
                             <tr style="font-size: 15px">
                                 <td data-th="Id">{{$step->id}}</td>
+                                <td data-th="Id">{{$step->day->day??''}}</td>
 {{--                                <td data-th="Тип">{{$step->route_type == 'sender' ? 'Отправлю' : 'Перевезу'}}</td>--}}
                                 <td data-th="Цель">{{$step->goal}}</td>
                                 <td data-th="Текущий резуальтат">{{$step->current}}</td>

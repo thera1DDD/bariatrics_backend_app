@@ -29,6 +29,7 @@ class StoreRequest extends FormRequest
             'distance' => 'nullable',
             'date' => 'nullable',
             'users_id' => 'nullable',
+            'day_id' => 'nullable',
         ];
     }
 }

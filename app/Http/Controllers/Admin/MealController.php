@@ -12,6 +12,9 @@ use App\Models\Meal;
 use App\Models\MealsFood;
 use App\Models\User;
 use App\Services\MealService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,6 +40,10 @@ class MealController extends Controller
 
     public function destroyProduct(MealsFood $mealsProduct): RedirectResponse
     {
+        $kcalToSubtract = $mealsProduct->food->kkal * $mealsProduct->quantity;
+        $meal = $mealsProduct->meal;
+        $meal->total_kcal = max(0, $meal->total_kcal - $kcalToSubtract);
+        $meal->save();
         $mealsProduct->forceDelete();
         return back()->with('error', 'Удалено');
 
@@ -88,7 +95,7 @@ class MealController extends Controller
     public function storeMeal(MealRequest $request)
     {
         $data = $request->validated();
-        $mealTranslations = $this->mealService->translateType();
+//        $mealTranslations = $this->mealService->translateType();
         $this->mealService->store($data);
         return redirect()->route('meal.index',$data['users_id'])->with('success','Добавленно');
 
@@ -96,8 +103,14 @@ class MealController extends Controller
 
     public function storeProduct(MealFoodRequest $request)
     {
-        MealsFood::firstOrCreate($request->validated());
+        $this->mealService->storeProduct($request->validated());
         return redirect()->route('mealsProduct.index',$request->meals_id)->with('success','Обновленно');
+    }
+    public function userSearch(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('meal.userList')
+            ->with(['users'=>(new User)
+                ->searchByUser($request->input('search'))]);
     }
 
 
@@ -107,7 +120,7 @@ class MealController extends Controller
     public function showProducts(Meal $meal)
     {
         $mealsProducts = MealsFood::query()->where('meals_id',$meal->id)->with('food')->paginate(5);
-        return view('meal.mealsProduct.index')->with(['mealsProducts' => $mealsProducts,'meals_id' => $meal->id]);
+        return view('meal.mealsProduct.index')->with(['mealsProducts' => $mealsProducts,'meal' => $meal]);
     }
 
     /**

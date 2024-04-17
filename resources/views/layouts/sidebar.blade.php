@@ -66,7 +66,7 @@
 
                 <li class="sidebar-item">
                     <a style="font-size: 16px" href="{{route('userList.step')}}" class="sidebar-link">
-                        <i class="fa fa-blind pe-2"></i>
+                        <i class="fa fa-wheelchair-alt pe-2"></i>
                         Шагомер
                     </a>
                 </li>

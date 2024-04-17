@@ -19,7 +19,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use function Laravel\Prompts\error;
 use function PHPUnit\Framework\isFalse;
 
-class MainDisplayController extends Controller
+class StepDisplayController extends Controller
 {
 
     protected RoutingService $routingService;
@@ -42,14 +42,14 @@ class MainDisplayController extends Controller
        }
     }
 
-    public function getMeals(GetMealRequest $request): AnonymousResourceCollection
+    public function getSteps(GetMealRequest $request): AnonymousResourceCollection
     {
 //        Meal::query()->where('users_id',$request->users_id)->with('item.food')->limit(2)->get();
         $userId = $request->users_id;
-        $meals = Day::whereHas('meal', function($query) use ($userId) {
+        $meals = Day::whereHas('step', function($query) use ($userId) {
         $query->where('users_id', $userId);
-      })->with('meal.item.food')->paginate(5);
-      return DayResource::collection($meals);
+      })->with('step')->paginate(5);
+      return \App\Http\Resources\API\StepDisplayResource\DayResource::collection($meals);
     }
 
     public function getRoutes(): JsonResponse {

@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{user}/create', [MealController::class, 'createMeal'])->name('meal.create');
         Route::get('/{meal}/edit',[MealController::class, 'edit'])->name('meal.edit');
         Route::get('/search',[MealController::class,'userSearch'])->name('userList.search.meal');
-        Route::get('/daySearch',[MealController::class,'waterSearch'])->name('meal.search');
+//        Route::get('/daySearch',[MealController::class,'meals'])->name('meal.search');
     });
     Route::group(['prefix'=>'categories',],function (){
         Route::delete('{category}',[CategoryController::class,'destroy'])->name('category.delete');
