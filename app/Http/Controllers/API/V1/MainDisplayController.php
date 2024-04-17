@@ -29,7 +29,7 @@ class MainDisplayController extends Controller
         $userId = $request->users_id;
       $meals = Day::whereHas('meal', function($query) use ($userId) {
           $query->where('users_id', $userId);
-      })->with('meal.item.food')->get();
+      })->with('meal.item.food')->paginate(5);
       return response()->json(['meal' => $meals]);
     }
 
